@@ -1,0 +1,9 @@
+version: '3'
+services:
+  goanywhere:
+    container_name: goanywhere
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8000"

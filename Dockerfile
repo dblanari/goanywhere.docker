@@ -4,7 +4,7 @@ RUN yum -y -q install java-1.8.0-openjdk-devel
 RUN yum install -y -q nmap gunzip which curl
 
 RUN mkdir -p /etc/fonts
-COPY local.conf /etc/fonts/local.conf 
+COPY local.conf /etc/fonts/local.conf
 
 
 RUN mkdir -p /home/vagrant
@@ -16,7 +16,10 @@ RUN printf 'o\n\n\n\n\n1\n/home/vagrant/Linoma_Software/\n8000\n8001\n1443\n2221
 
 COPY goanywhere.service /usr/lib/systemd/system/goanywhere.service
 
-WORKDIR /home/vagrant/Linoma_Software 
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
+WORKDIR /home/vagrant/Linoma_Software
 
 # Administration Port
 EXPOSE 8000
@@ -45,4 +48,4 @@ EXPOSE 8009
 # Shutdown Port
 EXPOSE 8005
 
-CMD ["goanywhere.sh","start"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
